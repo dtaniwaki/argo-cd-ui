@@ -1,4 +1,4 @@
-import { DropDownMenu } from 'argo-ui';
+import { DropDownMenu, Tooltip } from 'argo-ui';
 import * as React from 'react';
 
 import { Consumer } from '../../../shared/context';
@@ -29,13 +29,21 @@ export const ApplicationsTable = (props: {
             }>
                 <div className='row applications-list__table-row' onClick={(e) => ctx.navigation.goto(`/applications/${app.metadata.name}`, {}, { event: e })}>
                     <div className='columns large-2 small-6'>
-                        <i className='icon argo-icon-application'/> {app.spec.project}/{app.metadata.name} <ApplicationURLs urls={app.status.summary.externalURLs}/>
+                        <Tooltip content={`${app.spec.project}/${app.metadata.name}`}>
+                            <span>
+                                <i className='icon argo-icon-application'/> {app.spec.project}/{app.metadata.name} <ApplicationURLs urls={app.status.summary.externalURLs}/>
+                            </span>
+                        </Tooltip>
                     </div>
                     <div className='columns large-4 show-for-large'>
-                        {app.spec.source.repoURL}/{app.spec.source.path}
+                        <Tooltip content={`${app.spec.source.repoURL}/${app.spec.source.path}`}>
+                            <span>{app.spec.source.repoURL}/{app.spec.source.path}</span>
+                        </Tooltip>
                     </div>
                     <div className='columns large-3 show-for-large'>
-                        {app.spec.destination.server}/{app.spec.destination.namespace}
+                        <Tooltip content={`${app.spec.destination.server}/${app.spec.destination.namespace}`}>
+                            <span>{app.spec.destination.server}/{app.spec.destination.namespace}</span>
+                        </Tooltip>
                     </div>
                     <div className='columns large-3 small-6'>
                         <div className='applications-list__table-icon'>
